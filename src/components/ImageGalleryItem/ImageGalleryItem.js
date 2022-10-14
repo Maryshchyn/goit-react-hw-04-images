@@ -1,42 +1,41 @@
 import {StyledItem, StyledImage} from './ImageGalleryItem.styled'
 import  Modal  from '../Modal/Modal';
-import { Component } from 'react';
+import { useState } from 'react';
 
-export class ImageGalleryItem extends Component {
-    state = {
-        isOpenModal: false,
-        largeImg: '',
-    };
-    
-  openModal = e => {
+
+export function ImageGalleryItem ({ smallImgLink, tags, largeImgLink }) {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [largeImg, setLargeImg] = useState('')
+  
+  const openModal = e => {
     
     const largeImgLink = e.target.dataset.largeimglink;
-    this.setState({
-      largeImg: largeImgLink,
-      isOpenModal: true,
-    });
+   
+     setLargeImg(largeImgLink);
+     setIsOpenModal(true)
   };
 
-  closeModal = e => {
-    this.setState({ isOpenModal: false });
+  const closeModal = () => {
+  setIsOpenModal(false)
+    
   };
 
-  render() {
-    const { largeImg, isOpenModal } = this.state;
-    const { smallImgLink, tags, largeImgLink } = this.props;
 
-    return (
+
+  return (
       <StyledItem>
         <StyledImage
           src={smallImgLink}
           alt={tags}
           data-largeimglink={largeImgLink}
-          onClick={this.openModal}
+          onClick={openModal}
         />
         {isOpenModal && (
-          <Modal closeModal={this.closeModal} largeImg={largeImg} />
+          <Modal closeModal={closeModal} largeImg={largeImg} />
         )}
       </StyledItem>
-    );
-  }
-}
+  );
+  
+
+    };
+    
