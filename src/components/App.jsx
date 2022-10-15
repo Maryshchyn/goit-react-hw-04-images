@@ -39,7 +39,7 @@ export function App() {
   }, [page, query]);
     
     const  loadMore = () => {
-    setPage(prevState => prevState.page + 1)
+    setPage(prevState => prevState + 1)
   }
   
   const  toggleModal = () => {
