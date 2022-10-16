@@ -15,7 +15,10 @@ const onClickEsc = e => {
  
     
     window.addEventListener('keydown', onClickEsc);
-    window.removeEventListener('keydown', onClickEsc);
+    return () => {
+      window.removeEventListener('keydown', onClickEsc);
+    };
+    
 
     }, [closeModal]);
 
