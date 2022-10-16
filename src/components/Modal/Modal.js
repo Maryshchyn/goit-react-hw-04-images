@@ -1,43 +1,36 @@
-import { Component } from "react";
+import { useEffect } from "react";
 import { StyledOverlay, StyledModal, StyledImg } from './Modal.styled';
 import { createPortal } from "react-dom";
 
 
-const madalRoot = document.querySelector('#modal-root')
+const madalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-    componentDidMount() {
-        window.addEventListener('keydown', this.onClickEsc)
+export function Modal({largeImg, closeModal}) {
+  useEffect(() => {
+const onClickEsc = e => {
+    if (e.code === 'Escape') {
+      closeModal();
     }
-            
-                
-    componentWillUnmount() {
-        window.addEventListener('keydown', this.onClickEsc)
-    }
-   onClickEsc = e => {
-    if (e.code !== 'Escape') {
-      return;
-    }
-    this.props.closeModal();
   };
+ 
+    
+    window.addEventListener('keydown', onClickEsc);
+    window.removeEventListener('keydown', onClickEsc);
 
-handleOverlayClick = e => {
+    }, [closeModal]);
+
+ const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
-      this.props.closeModal();
+      closeModal();
     }
-  };
-    render() {
-        const { largeImg } = this.props;
-        return createPortal(
+  }
+return createPortal(
             <StyledOverlay
-                onClick={this.handleOverlayClick}>
+                onClick={handleOverlayClick}>
             <StyledModal>
                 
                 <StyledImg src={largeImg} alt="" />
             </StyledModal>
         </StyledOverlay>, madalRoot);
-            
-        
-    }
+  }
 
-}

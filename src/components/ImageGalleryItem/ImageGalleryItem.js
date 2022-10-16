@@ -1,5 +1,5 @@
 import {StyledItem, StyledImage} from './ImageGalleryItem.styled'
-import  Modal  from '../Modal/Modal';
+import  {Modal}  from '../Modal/Modal';
 import { useState } from 'react';
 
 
